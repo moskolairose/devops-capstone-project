@@ -62,11 +62,8 @@ def create_accounts():
 ######################################################################
 
 # ... place you code here to LIST accounts ...
-    ######################################################################
-    # LIST ALL ACCOUNTS
-    ######################################################################
-    @app.route("/accounts", methods=["GET"])
-    def list_accounts():
+@app.route("/accounts", methods=["GET"])
+def list_accounts():
         """
         List all Accounts
         This endpoint will list all Accounts
@@ -77,7 +74,11 @@ def create_accounts():
         account_list = [account.serialize() for account in accounts]
 
         app.logger.info("Returning [%s] accounts", len(account_list))
-        return jsonify(account_list), status.HTTP_200_OK   
+        return jsonify(account_list), status.HTTP_200_OK      
+    ######################################################################
+    # LIST ALL ACCOUNTS
+    ######################################################################
+    
 ######################################################################
 # READ AN ACCOUNT
 ######################################################################
@@ -86,8 +87,8 @@ def create_accounts():
     ######################################################################
     # READ AN ACCOUNT
     ######################################################################
-    @app.route("/accounts/<int:account_id>", methods=["GET"])
-    def get_accounts(account_id):
+@app.route("/accounts/<int:account_id>", methods=["GET"])  
+def get_accounts(account_id):
         """
         Reads an Account
         This endpoint will read an Account based the account_id that is requested
@@ -99,10 +100,7 @@ def create_accounts():
             abort(status.HTTP_404_NOT_FOUND, f"Account with id [{account_id}] could not be found.")
 
         return account.serialize(), status.HTTP_200_OK
-    def test_get_account_not_found(self):
-        """It should not Read an Account that is not found"""
-        resp = self.client.get(f"{BASE_URL}/0")
-        self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+
 ######################################################################
 # UPDATE AN EXISTING ACCOUNT
 ######################################################################
@@ -113,8 +111,8 @@ def create_accounts():
     ######################################################################
     # UPDATE AN EXISTING ACCOUNT
     ######################################################################
-    @app.route("/accounts/<int:account_id>", methods=["PUT"])
-    def update_accounts(account_id):
+@app.route("/accounts/<int:account_id>", methods=["PUT"])
+def update_accounts(account_id):
         """
         Update an Account
         This endpoint will update an Account based on the posted data
@@ -128,7 +126,7 @@ def create_accounts():
         account.deserialize(request.get_json())
         account.update()
 
-        return account.serialize(), status.HTTP_200_OK
+        return account.serialize(), status.HTTP_200_OK        
 ######################################################################
 # DELETE AN ACCOUNT
 ######################################################################
@@ -138,8 +136,8 @@ def create_accounts():
     ######################################################################
     # DELETE AN ACCOUNT
     ######################################################################
-    @app.route("/accounts/<int:account_id>", methods=["DELETE"])
-    def delete_accounts(account_id):
+@app.route("/accounts/<int:account_id>", methods=["DELETE"])
+def delete_accounts(account_id):
         """
         Delete an Account
         This endpoint will delete an Account based on the account_id that is requested
@@ -150,7 +148,7 @@ def create_accounts():
         if account:
             account.delete()
 
-        return "", status.HTTP_204_NO_CONTENT
+        return "", status.HTTP_204_NO_CONTENT        
 ######################################################################
 #  U T I L I T Y   F U N C T I O N S
 ######################################################################
